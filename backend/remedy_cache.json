@@ -1,0 +1,86 @@
+{
+  "tomato|spider mites two spotted spider mite": {
+    "explanation": "Two-spotted spider mites are tiny pests (almost invisible) that suck sap from leaves, causing yellow speckles and fine webbing. They thrive in hot, dry weather and multiply very fast.",
+    "remedy": "1. Spray plants with a strong jet of water to knock mites off leaves.\n2. Apply neem oil spray (5 ml per litre of water) every 5 days.\n3. Use miticide (abamectin or bifenazate) if infestation is severe.\n4. Increase humidity around plants — mites dislike moisture.\n5. Remove heavily infested leaves and dispose in a sealed bag.",
+    "source": "knowledge_base",
+    "cached_at": "2026-08-19T21:46:11.721867"
+  },
+  "tomato|early blight": {
+    "explanation": "Early blight is caused by the fungus Alternaria solani. It starts as brown spots with yellow halos on lower leaves and works upward, weakening the plant over time.",
+    "remedy": "1. Prune and remove lower infected leaves as soon as you see spots.\n2. Apply mancozeb or chlorothalonil fungicide spray every 7–10 days.\n3. Add mulch around the base to prevent soil from splashing onto leaves.\n4. Water in the morning at the base only, never overhead.\n5. Feed the plant with potassium-rich fertilizer to boost immunity.",
+    "source": "knowledge_base",
+    "cached_at": "2026-08-19T22:06:58.072088"
+  },
+  "tomato|healthy": {
+    "explanation": "Your tomato plant looks healthy! No signs of disease are visible on the leaf.",
+    "remedy": "1. Water regularly at the base in the morning — avoid wetting leaves.\n2. Check weekly for early signs of spots, yellowing, or pests.\n3. Apply balanced NPK fertilizer once a month.\n4. Prune suckers to improve airflow and reduce disease risk.",
+    "source": "knowledge_base",
+    "cached_at": "2026-08-19T22:12:14.779538"
+  },
+  "tomato|late blight": {
+    "explanation": "Late blight is caused by Phytophthora infestans and is one of the most destructive tomato diseases. It forms large, dark, oily-looking patches on leaves and fruit very quickly in cool, wet weather.",
+    "remedy": "1. Act immediately — remove and destroy all infected plant material by burning.\n2. Apply a systemic fungicide (metalaxyl or cymoxanil) right away.\n3. Avoid watering from above — use drip irrigation if possible.\n4. Space plants well apart so air can circulate between them.\n5. If more than 30% of the plant is infected, remove the entire plant to save neighbors.",
+    "source": "knowledge_base",
+    "cached_at": "2026-10-06T14:42:29.185165"
+  },
+  "potato|healthy": {
+    "explanation": "Your potato plant looks healthy! The leaves are green and show no signs of disease.",
+    "remedy": "1. Keep watering regularly at the base of the plant, not on leaves.\n2. Check leaves every few days for early signs of spots or discolouration.\n3. Apply balanced fertilizer (NPK) once a month during growing season.\n4. Control weeds around plants to reduce pest and disease risk.",
+    "source": "knowledge_base",
+    "cached_at": "2026-10-06T14:45:50.058575"
+  },
+  "potato|early blight": {
+    "explanation": "Early blight is a fungal disease caused by Alternaria solani. It creates dark brown spots with yellow rings on older leaves, especially in warm, humid weather.",
+    "remedy": "1. Remove and destroy infected leaves immediately — do not compost them.\n2. Spray the plant with a copper-based fungicide or mancozeb every 7–10 days.\n3. Water the plants at the base in the morning so leaves dry quickly.\n4. Avoid overcrowding plants — good airflow prevents fungal spread.\n5. After harvest, clear all plant debris from the field.",
+    "source": "knowledge_base",
+    "cached_at": "2026-10-06T14:57:19.508933"
+  },
+  "potato|late blight": {
+    "explanation": "Late blight is a dangerous disease caused by Phytophthora infestans. It causes dark, water-soaked lesions on leaves and tubers and spreads very fast in cool, wet conditions.",
+    "remedy": "1. Remove and burn all infected plant parts immediately — do not leave them in the field.\n2. Spray with a systemic fungicide (metalaxyl + mancozeb) every 5–7 days.\n3. Avoid overhead watering — wet leaves spread the disease fast.\n4. Hill up soil around plants to protect tubers from infection.\n5. Harvest tubers early if the disease is spreading quickly.",
+    "source": "knowledge_base",
+    "cached_at": "2026-10-07T03:35:58.382682"
+  },
+  "tomato|leaf mold": {
+    "explanation": "Leaf mold is caused by the fungus Passalora fulva. It appears as pale green or yellow patches on the upper leaf surface with an olive-green mold on the underside, thriving in high humidity.",
+    "remedy": "1. Improve ventilation — open greenhouse vents or space plants further apart.\n2. Remove and destroy severely infected leaves immediately.\n3. Spray with chlorothalonil or copper fungicide every 7 days.\n4. Reduce humidity by watering in the morning only at the base.\n5. Avoid splashing water on leaves — wet conditions allow the fungus to spread.",
+    "source": "knowledge_base",
+    "cached_at": "2026-10-07T03:36:11.900050"
+  },
+  "corn|common rust": {
+    "explanation": "Your Corn plant shows signs of Common rust. This is a fungal or bacterial condition that needs prompt attention.",
+    "remedy": "1. Remove and destroy all visibly infected leaves.\n2. Spray with a broad-spectrum fungicide or copper-based bactericide.\n3. Avoid watering from above — water at the base only.\n4. Ensure good airflow around the plant by removing crowded growth.",
+    "source": "knowledge_base",
+    "cached_at": "2026-10-07T04:06:05.984946"
+  },
+  "corn|cercospora leaf spot gray leaf spot": {
+    "explanation": "Your Corn plant shows signs of Cercospora leaf spot Gray leaf spot. This is a fungal or bacterial condition that needs prompt attention.",
+    "remedy": "1. Remove and destroy all visibly infected leaves.\n2. Spray with a broad-spectrum fungicide or copper-based bactericide.\n3. Avoid watering from above — water at the base only.\n4. Ensure good airflow around the plant by removing crowded growth.",
+    "source": "knowledge_base",
+    "cached_at": "2026-10-07T04:06:19.519016"
+  },
+  "tomato|bacterial spot": {
+    "explanation": "Bacterial spot is caused by Xanthomonas bacteria. It creates small, dark, water-soaked spots on leaves and fruit, spreading quickly through rain splash and infected tools.",
+    "remedy": "1. Remove all visibly infected leaves and put them in a sealed bag — do not compost.\n2. Spray with copper-based bactericide (copper hydroxide) every 7 days.\n3. Avoid working with plants when they are wet to prevent spreading bacteria.\n4. Disinfect your tools with diluted bleach (1:9 ratio) between plants.\n5. Rotate crops — do not grow tomatoes in the same spot next season.",
+    "source": "knowledge_base",
+    "cached_at": "2026-10-07T04:06:41.362560"
+  },
+  "tomato|tomato yellow leaf curl virus": {
+    "explanation": "Tomato Yellow Leaf Curl Virus (TYLCV) is spread by whiteflies. Infected plants show upward curling of leaves, yellowing, and stunted growth. There is no cure — prevention through whitefly control is essential.",
+    "remedy": "1. Remove and destroy infected plants immediately to stop the virus spreading.\n2. Control whiteflies with yellow sticky traps placed near plants.\n3. Spray insecticide (imidacloprid or thiamethoxam) to kill whiteflies.\n4. Use reflective silver mulch to repel whiteflies from the field.\n5. Next season, plant virus-resistant tomato varieties.",
+    "source": "knowledge_base",
+    "cached_at": "2026-10-07T04:59:09.079824"
+  },
+  "corn|northern leaf blight": {
+    "explanation": "Your Corn plant shows signs of Northern Leaf Blight. This is a fungal or bacterial condition that needs prompt attention.",
+    "remedy": "1. Remove and destroy all visibly infected leaves.\n2. Spray with a broad-spectrum fungicide or copper-based bactericide.\n3. Avoid watering from above — water at the base only.\n4. Ensure good airflow around the plant by removing crowded growth.",
+    "source": "knowledge_base",
+    "cached_at": "2026-10-07T07:06:36.930384"
+  },
+  "tomato|septoria leaf spot": {
+    "explanation": "Septoria leaf spot is a fungal disease showing as small, circular spots with dark borders and light grey centres on lower leaves first. It spreads upward in wet weather and can defoliate the whole plant.",
+    "remedy": "1. Remove infected leaves from the bottom of the plant first.\n2. Apply mancozeb or copper-based fungicide every 7–10 days.\n3. Avoid wetting the foliage when watering.\n4. Mulch around the base to prevent soil splash.\n5. Clean up all plant debris at the end of the season.",
+    "source": "knowledge_base",
+    "cached_at": "2026-10-07T21:48:23.646672"
+  }
+}

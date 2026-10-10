@@ -1,0 +1,30 @@
+{
+  "resnet18": {
+    "val_accuracy": 0.9759,
+    "test_accuracy": 0.9736,
+    "trainable_params": 8663566,
+    "total_params": 11446350,
+    "training_time_sec": 2580.0
+  },
+  "resnet50": {
+    "val_accuracy": 0.9768,
+    "test_accuracy": 0.9714,
+    "trainable_params": 16021006,
+    "total_params": 24564302,
+    "training_time_sec": 2894.6
+  },
+  "densenet121": {
+    "val_accuracy": 0.9723,
+    "test_accuracy": 0.9627,
+    "trainable_params": 2692110,
+    "total_params": 7485838,
+    "training_time_sec": 2834.6
+  },
+  "efficientnet_b0": {
+    "val_accuracy": 0.9823,
+    "test_accuracy": 0.9805,
+    "trainable_params": 3818794,
+    "total_params": 4670602,
+    "training_time_sec": 2594.2
+  }
+}

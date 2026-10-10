@@ -1,0 +1,102 @@
+{
+  "classes": [
+    {
+      "index": 0,
+      "folder": "Corn___Cercospora_leaf_spot Gray_leaf_spot",
+      "crop": "Corn",
+      "disease": "Cercospora leaf spot Gray leaf spot",
+      "is_healthy": false
+    },
+    {
+      "index": 1,
+      "folder": "Corn___Common_rust",
+      "crop": "Corn",
+      "disease": "Common rust",
+      "is_healthy": false
+    },
+    {
+      "index": 2,
+      "folder": "Corn___Northern_Leaf_Blight",
+      "crop": "Corn",
+      "disease": "Northern Leaf Blight",
+      "is_healthy": false
+    },
+    {
+      "index": 3,
+      "folder": "Corn___healthy",
+      "crop": "Corn",
+      "disease": "Healthy",
+      "is_healthy": true
+    },
+    {
+      "index": 4,
+      "folder": "Tomato___Bacterial_spot",
+      "crop": "Tomato",
+      "disease": "Bacterial spot",
+      "is_healthy": false
+    },
+    {
+      "index": 5,
+      "folder": "Tomato___Early_blight",
+      "crop": "Tomato",
+      "disease": "Early blight",
+      "is_healthy": false
+    },
+    {
+      "index": 6,
+      "folder": "Tomato___Late_blight",
+      "crop": "Tomato",
+      "disease": "Late blight",
+      "is_healthy": false
+    },
+    {
+      "index": 7,
+      "folder": "Tomato___Leaf_Mold",
+      "crop": "Tomato",
+      "disease": "Leaf Mold",
+      "is_healthy": false
+    },
+    {
+      "index": 8,
+      "folder": "Tomato___Septoria_leaf_spot",
+      "crop": "Tomato",
+      "disease": "Septoria leaf spot",
+      "is_healthy": false
+    },
+    {
+      "index": 9,
+      "folder": "Tomato___Spider_mites Two-spotted_spider_mite",
+      "crop": "Tomato",
+      "disease": "Spider mites Two-spotted spider mite",
+      "is_healthy": false
+    },
+    {
+      "index": 10,
+      "folder": "Tomato___Target_Spot",
+      "crop": "Tomato",
+      "disease": "Target Spot",
+      "is_healthy": false
+    },
+    {
+      "index": 11,
+      "folder": "Tomato___Tomato_Yellow_Leaf_Curl_Virus",
+      "crop": "Tomato",
+      "disease": "Tomato Yellow Leaf Curl Virus",
+      "is_healthy": false
+    },
+    {
+      "index": 12,
+      "folder": "Tomato___Tomato_mosaic_virus",
+      "crop": "Tomato",
+      "disease": "Tomato mosaic virus",
+      "is_healthy": false
+    },
+    {
+      "index": 13,
+      "folder": "Tomato___healthy",
+      "crop": "Tomato",
+      "disease": "Healthy",
+      "is_healthy": true
+    }
+  ]
+}

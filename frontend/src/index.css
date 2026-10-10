@@ -1,0 +1,1380 @@
+/* ═══════════════════════════════════════════════════════════════════
+   AgriPulse AI — Design System
+   Light theme: light yellow (main) + light sky blue (secondary)
+   + light green (small accents). Red/orange kept for warnings.
+   Soft cards, smooth transitions, exhibition-ready large fonts
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ─── Google Fonts ────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Kalam:wght@300;400;700&display=swap');
+
+/* ─── CSS Custom Properties ──────────────────────────────────────── */
+:root {
+  /* MAIN — light yellow (page background, big cards) */
+  --yellow-50:  #fffef2;
+  --yellow-100: #fffbd9;
+  --yellow-200: #fff6b8;
+  --yellow-300: #ffef94;
+
+  /* SECONDARY — light sky blue (headers, buttons, model panel, borders) */
+  --sky-50:   #f0f9ff;
+  --sky-100:  #e0f2fe;
+  --sky-200:  #bae6fd;
+  --sky-300:  #7dd3fc;
+  --sky-400:  #38bdf8;
+  --sky-500:  #0ea5e9;
+  --sky-700:  #0369a1;
+  --sky-900:  #0c4a6e;
+
+  /* MINOR — light green (healthy badge, good confidence bar, small highlights) */
+  --mint-100: #dcfce7;
+  --mint-200: #bbf7d0;
+  --mint-300: #86efac;
+  --mint-400: #4ade80;
+  --mint-600: #16a34a;
+  --mint-700: #15803d;
+  --mint-800: #166534;
+
+  /* WARNING colors — kept so alerts stand out */
+  --amber-800:  #92400e;
+  --amber-700:  #b45309;
+  --amber-600:  #d97706;
+  --amber-500:  #f59e0b;
+  --amber-400:  #fbbf24;
+  --amber-300:  #fcd34d;
+
+  --red-700:    #b91c1c;
+  --red-600:    #dc2626;
+  --red-500:    #ef4444;
+
+  /* Alert tokens (used by ResultCard severity banner) */
+  --ok-text:       #166534;
+  --ok-bg:         rgba(134, 239, 172, 0.35);
+  --ok-border:     rgba(22, 163, 74, 0.40);
+
+  --warn-text:     #92400e;
+  --warn-bg:       rgba(251, 191, 36, 0.28);
+  --warn-border:   rgba(217, 119, 6, 0.45);
+
+  --danger-text:   #991b1b;
+  --danger-bg:     rgba(252, 165, 165, 0.35);
+  --danger-border: rgba(220, 38, 38, 0.40);
+
+  /* Semantic tokens */
+  --bg-primary:      var(--yellow-100);
+  --bg-secondary:    var(--yellow-50);
+  --glass-border:    rgba(56, 189, 248, 0.35);
+  --glass-border-hv: rgba(14, 165, 233, 0.65);
+
+  --text-primary:    #2b2a1c;
+  --text-secondary:  var(--sky-900);
+  --text-muted:      #6a6548;
+  --text-accent:     var(--amber-700);
+
+  /* Gradients */
+  --gradient-bg:      linear-gradient(135deg, #fff1a6 0%, #ffe777 50%, #ffee94 100%);
+  --gradient-card:    linear-gradient(145deg, #fffef5 0%, #fffbdf 100%);
+  --gradient-sky:     linear-gradient(135deg, var(--sky-200), var(--sky-300));
+  --gradient-sky-hv:  linear-gradient(135deg, var(--sky-300), var(--sky-400));
+  --gradient-healthy: linear-gradient(90deg, var(--mint-300), var(--mint-400));
+  --gradient-disease: linear-gradient(90deg, var(--amber-400), var(--red-500));
+
+  /* Typography */
+  --font-display: 'Outfit', 'Inter', sans-serif;
+  --font-body:    'Inter', sans-serif;
+
+  /* Spacing */
+  --radius-sm:  6px;
+  --radius-md:  12px;
+  --radius-lg:  20px;
+  --radius-xl:  28px;
+
+  /* Transitions */
+  --transition-fast:   all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Shadows (soft, blue-tinted for a light background) */
+  --shadow-sm:  0 2px 8px rgba(12, 74, 110, 0.08);
+  --shadow-md:  0 8px 24px rgba(12, 74, 110, 0.10);
+  --shadow-lg:  0 16px 48px rgba(12, 74, 110, 0.14);
+  --shadow-glow-sky:  0 0 28px rgba(56, 189, 248, 0.25);
+  --shadow-glow-mint: 0 0 24px rgba(74, 222, 128, 0.30);
+}
+
+/* ─── Reset & Base ───────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--gradient-bg);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ─── Animated background orbs ──────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  top: -20%;
+  left: -10%;
+  width: 60vw;
+  height: 60vw;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.14) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: orb-drift 20s ease-in-out infinite alternate;
+  z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -20%;
+  right: -10%;
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(circle, rgba(74, 222, 128, 0.14) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: orb-drift 25s ease-in-out infinite alternate-reverse;
+  z-index: 0;
+}
+
+@keyframes orb-drift {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(4%, 4%) scale(1.08); }
+}
+
+/* ─── App Layout ─────────────────────────────────────────────────── */
+.app {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+  min-height: 100vh;
+}
+
+/* ─── Header ─────────────────────────────────────────────────────── */
+.app-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  padding-top: 1rem;
+}
+
+.app-header .logo-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.app-header .logo-icon {
+  font-size: 2.8rem;
+  filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.45));
+  animation: leaf-float 4s ease-in-out infinite;
+}
+
+@keyframes leaf-float {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50%       { transform: translateY(-6px) rotate(2deg); }
+}
+
+.app-header h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  background: linear-gradient(135deg, #075985, #0284c7, #15803d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.app-header .subtitle {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+  opacity: 0.85;
+  margin-top: 0.4rem;
+}
+
+.app-header .crop-tags {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.crop-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.25rem 0.8rem;
+  background: rgba(134, 239, 172, 0.40);
+  border: 1px solid var(--mint-300);
+  border-radius: 100px;
+  font-size: 0.8rem;
+  color: var(--mint-800);
+  font-weight: 600;
+  transition: var(--transition-fast);
+}
+
+/* ─── Glass Card ─────────────────────────────────────────────────── */
+.glass-card {
+  background: var(--gradient-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+  transition: var(--transition-smooth);
+}
+
+.glass-card:hover {
+  border-color: var(--glass-border-hv);
+  box-shadow: var(--shadow-lg), var(--shadow-glow-sky);
+}
+
+/* ─── ImageUploader ──────────────────────────────────────────────── */
+.uploader {
+  text-align: center;
+}
+
+.uploader h2 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+}
+
+.drop-zone {
+  border: 2px dashed var(--glass-border-hv);
+  border-radius: var(--radius-lg);
+  padding: 3rem 2rem;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+  background: rgba(186, 230, 253, 0.25);
+}
+
+.drop-zone:hover,
+.drop-zone.drag-active {
+  border-color: var(--sky-500);
+  background: rgba(186, 230, 253, 0.45);
+  box-shadow: var(--shadow-glow-sky);
+  transform: scale(1.01);
+}
+
+.drop-zone input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+.drop-zone-icon {
+  font-size: 3.5rem;
+  margin-bottom: 0.75rem;
+  display: block;
+  animation: bounce-subtle 2.5s ease-in-out infinite;
+}
+
+@keyframes bounce-subtle {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+.drop-zone h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.4rem;
+}
+
+.drop-zone p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.drop-zone .browse-link {
+  color: var(--sky-700);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Camera capture button (small accent → light green) */
+.camera-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+  padding: 0.6rem 1.4rem;
+  background: rgba(134, 239, 172, 0.35);
+  border: 1px solid var(--mint-400);
+  border-radius: 100px;
+  color: var(--mint-800);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  font-family: var(--font-body);
+  position: relative;
+}
+
+.camera-btn input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.camera-btn:hover {
+  background: rgba(134, 239, 172, 0.60);
+  border-color: var(--mint-600);
+  box-shadow: var(--shadow-glow-mint);
+  transform: translateY(-1px);
+}
+
+/* Preview image */
+.preview-container {
+  position: relative;
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+.preview-image {
+  max-height: 280px;
+  max-width: 100%;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--sky-300);
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+  box-shadow: var(--shadow-md);
+}
+
+.preview-clear-btn {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 32px;
+  height: 32px;
+  background: var(--red-600);
+  border: 2px solid var(--yellow-50);
+  border-radius: 50%;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-fast);
+  line-height: 1;
+}
+
+.preview-clear-btn:hover {
+  background: var(--red-500);
+  transform: scale(1.1);
+}
+
+/* ─── Analyze Button ─────────────────────────────────────────────── */
+.analyze-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1.75rem;
+  padding: 0.9rem 2.5rem;
+  background: var(--gradient-sky);
+  border: 1.5px solid var(--sky-400);
+  border-radius: 100px;
+  color: var(--sky-900);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition-spring);
+  box-shadow: 0 4px 18px rgba(14, 165, 233, 0.30);
+  letter-spacing: 0.01em;
+}
+
+.analyze-btn:hover:not(:disabled) {
+  background: var(--gradient-sky-hv);
+  border-color: var(--sky-500);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 28px rgba(14, 165, 233, 0.40), var(--shadow-glow-sky);
+}
+
+.analyze-btn:active:not(:disabled) {
+  transform: translateY(0) scale(0.99);
+}
+
+.analyze-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.analyze-btn.loading {
+  pointer-events: none;
+}
+
+/* ─── Spinner ────────────────────────────────────────────────────── */
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(12, 74, 110, 0.20);
+  border-top-color: var(--sky-900);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ─── Loading State ──────────────────────────────────────────────── */
+.loading-state {
+  text-align: center;
+  padding: 2.5rem 1rem;
+}
+
+.loading-state .loading-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  display: block;
+  animation: pulse-glow 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.1); filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.6)); }
+}
+
+.loading-state p {
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+.loading-dots {
+  display: inline-flex;
+  gap: 4px;
+  margin-left: 4px;
+}
+
+.loading-dots span {
+  width: 5px;
+  height: 5px;
+  background: var(--sky-500);
+  border-radius: 50%;
+  animation: dot-bounce 1.2s ease-in-out infinite;
+}
+
+.loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+.loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes dot-bounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+  30%            { transform: translateY(-6px); opacity: 1; }
+}
+
+/* ─── ResultCard ─────────────────────────────────────────────────── */
+.result-card {
+  animation: slide-up 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(32px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)   scale(1); }
+}
+
+/* Mock warning banner */
+.mock-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  background: var(--warn-bg);
+  border: 1px solid var(--warn-border);
+  border-radius: var(--radius-md);
+  color: var(--warn-text);
+  font-size: 0.82rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Low confidence warning */
+.low-confidence-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.9rem 1rem;
+  background: var(--danger-bg);
+  border: 1px solid var(--danger-border);
+  border-radius: var(--radius-md);
+  color: var(--danger-text);
+  font-size: 0.88rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+/* Crop + Disease header */
+.result-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.result-crop-icon {
+  font-size: 3rem;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.45));
+}
+
+.result-title {
+  flex: 1;
+}
+
+.result-crop-name {
+  font-family: var(--font-display);
+  font-size: 1.0rem;
+  font-weight: 600;
+  color: var(--sky-700);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.result-disease-name {
+  font-family: var(--font-display);
+  font-size: 1.65rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-top: 0.1rem;
+}
+
+.result-disease-name.healthy  { color: var(--mint-700); }
+.result-disease-name.diseased { color: var(--amber-700); }
+
+.result-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.25rem 0.8rem;
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-top: 0.5rem;
+}
+
+.result-status-badge.healthy {
+  background: rgba(134, 239, 172, 0.45);
+  border: 1px solid var(--mint-400);
+  color: var(--mint-800);
+}
+
+.result-status-badge.diseased {
+  background: rgba(251, 191, 36, 0.30);
+  border: 1px solid var(--amber-600);
+  color: var(--amber-800);
+}
+
+/* Confidence bar */
+.confidence-section {
+  margin-bottom: 1.75rem;
+}
+
+.confidence-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.confidence-pct {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.confidence-bar-track {
+  height: 10px;
+  background: rgba(12, 74, 110, 0.10);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.confidence-bar-fill {
+  height: 100%;
+  border-radius: 100px;
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.confidence-bar-fill.healthy  { background: var(--gradient-healthy); }
+.confidence-bar-fill.diseased { background: var(--gradient-disease); }
+
+.confidence-bar-fill::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  width: 40px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.45));
+  border-radius: 100px;
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%   { opacity: 0; }
+  50%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Divider */
+.result-divider {
+  border: none;
+  border-top: 1px solid var(--glass-border);
+  margin: 1.5rem 0;
+}
+
+/* Explanation */
+.explanation-section h3,
+.remedy-section h3 {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--sky-700);
+  margin-bottom: 0.65rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.explanation-text {
+  font-size: 1.0rem;
+  color: var(--text-primary);
+  line-height: 1.7;
+}
+
+/* Remedy steps */
+.remedy-section {
+  margin-top: 1.5rem;
+}
+
+.remedy-steps {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.remedy-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.7rem 0.9rem;
+  background: rgba(125, 211, 252, 0.16);
+  border: 1px solid rgba(56, 189, 248, 0.28);
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+  transition: var(--transition-fast);
+  animation: step-in 0.4s ease both;
+}
+
+.remedy-step:hover {
+  background: rgba(125, 211, 252, 0.28);
+  border-color: rgba(14, 165, 233, 0.45);
+}
+
+.remedy-step:nth-child(1) { animation-delay: 0.1s; }
+.remedy-step:nth-child(2) { animation-delay: 0.2s; }
+.remedy-step:nth-child(3) { animation-delay: 0.3s; }
+.remedy-step:nth-child(4) { animation-delay: 0.4s; }
+.remedy-step:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes step-in {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.step-number {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  background: var(--mint-200);
+  border: 1px solid var(--mint-400);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--mint-800);
+  margin-top: 1px;
+}
+
+/* Remedy loading state */
+.remedy-loading {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  padding: 0.75rem 0;
+}
+
+/* ─── AudioPlayer ────────────────────────────────────────────────── */
+.audio-section {
+  margin-top: 1.75rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.audio-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.6rem;
+  background: rgba(125, 211, 252, 0.28);
+  border: 1.5px solid var(--sky-400);
+  border-radius: 100px;
+  color: var(--sky-900);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.audio-btn:hover {
+  background: rgba(125, 211, 252, 0.50);
+  border-color: var(--sky-500);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-glow-sky);
+}
+
+.audio-btn.speaking {
+  background: rgba(125, 211, 252, 0.50);
+  border-color: var(--sky-500);
+  animation: audio-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes audio-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.40); }
+  50%       { box-shadow: 0 0 0 10px rgba(56, 189, 248, 0); }
+}
+
+.audio-stop-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  background: rgba(252, 165, 165, 0.25);
+  border: 1.5px solid var(--danger-border);
+  border-radius: 100px;
+  color: var(--danger-text);
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.audio-stop-btn:hover {
+  background: rgba(252, 165, 165, 0.50);
+  border-color: var(--red-500);
+}
+
+.audio-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* ─── Try Again Button ───────────────────────────────────────────── */
+.try-again-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding: 0.65rem 1.5rem;
+  background: transparent;
+  border: 1.5px solid var(--sky-400);
+  border-radius: 100px;
+  color: var(--sky-900);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.try-again-btn:hover {
+  background: rgba(125, 211, 252, 0.30);
+  border-color: var(--sky-500);
+  color: var(--sky-900);
+  transform: translateY(-1px);
+}
+
+/* ─── Footer ─────────────────────────────────────────────────────── */
+.app-footer {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--glass-border);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  opacity: 0.9;
+}
+
+/* ─── Utility Classes ────────────────────────────────────────────── */
+.text-center { text-align: center; }
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+
+/* ─── Scrollbar ──────────────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: #ffec8a; }
+::-webkit-scrollbar-thumb { background: var(--sky-300); border-radius: 100px; }
+::-webkit-scrollbar-thumb:hover { background: var(--sky-400); }
+
+/* ─── Responsive ─────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .app { padding: 1rem 1rem 3rem; }
+  .glass-card { padding: 1.25rem; }
+  .result-header { flex-direction: column; }
+  .result-crop-icon { font-size: 2.2rem; }
+  .analyze-btn { width: 100%; justify-content: center; }
+  .audio-section { flex-direction: column; align-items: flex-start; }
+}
+
+/* ═══════════════════════════════════════════
+   AgriPulse v2 — New Feature Styles
+   ═══════════════════════════════════════════ */
+
+.model-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 0.45rem 1.2rem;
+  background: rgba(125, 211, 252, 0.30);
+  border: 1px solid var(--sky-400);
+  border-radius: 100px;
+  color: var(--sky-900);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  font-family: var(--font-body);
+}
+.model-toggle-btn:hover { background: rgba(125, 211, 252, 0.55); border-color: var(--sky-500); }
+.toggle-arrow { font-size: 0.7rem; opacity: 0.7; }
+
+.model-panel {
+  margin-top: 1rem;
+  background: linear-gradient(145deg, var(--sky-50), var(--sky-100));
+  border: 1px solid var(--sky-300);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  text-align: left;
+  box-shadow: var(--shadow-sm);
+  animation: slide-down 0.25s ease both;
+}
+@keyframes slide-down { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+.model-panel-title { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--sky-700); margin-bottom: 0.85rem; }
+.model-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem; }
+@media (max-width: 600px) { .model-grid { grid-template-columns: 1fr; } }
+.model-card { position: relative; padding: 0.9rem 1rem; background: rgba(255,255,255,0.65); border: 1px solid var(--sky-200); border-radius: var(--radius-md); cursor: pointer; transition: var(--transition-fast); }
+.model-card:hover { background: rgba(255,255,255,0.92); border-color: var(--sky-400); }
+.model-card.active { background: var(--sky-200); border-color: var(--sky-500); }
+.model-card.winner { border-color: rgba(217,119,6,0.55); }
+.winner-badge { position: absolute; top: -9px; right: 10px; background: var(--amber-300); color: #422006; border: 1px solid var(--amber-500); font-size: 0.68rem; font-weight: 800; padding: 0.05rem 0.55rem; border-radius: 100px; }
+.model-name { font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.3rem; }
+.model-stats { display: flex; gap: 0.75rem; font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.45rem; }
+.model-stats strong { color: var(--mint-700); }
+.model-why { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; }
+
+.severity-banner { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; padding: 0.6rem 1rem; border-radius: var(--radius-md); font-size: 0.85rem; font-weight: 700; margin-bottom: 1.25rem; flex-wrap: wrap; }
+.severity-urgent { font-size: 0.75rem; font-weight: 600; opacity: 0.85; margin-left: auto; }
+
+.early-stage-section { margin-bottom: 1.5rem; }
+.early-stage-section h3 { font-family: var(--font-display); font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--amber-700); margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.4rem; }
+.early-stage-subtitle { font-size: 0.83rem; color: var(--text-muted); margin-bottom: 0.75rem; line-height: 1.5; }
+.early-stage-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+.early-stage-item { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.9rem; color: var(--text-primary); line-height: 1.5; padding: 0.5rem 0.75rem; background: rgba(251,191,36,0.16); border: 1px solid rgba(217,119,6,0.30); border-radius: var(--radius-sm); animation: step-in 0.35s ease both; }
+.early-stage-dot { width: 7px; height: 7px; min-width: 7px; border-radius: 50%; background: var(--amber-600); margin-top: 6px; }
+
+.reference-section { margin-bottom: 1.5rem; }
+.reference-section h3 { font-family: var(--font-display); font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--sky-700); margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.4rem; }
+.reference-box { display: flex; gap: 1rem; padding: 1rem; background: rgba(125,211,252,0.15); border: 1px solid var(--glass-border); border-radius: var(--radius-md); align-items: flex-start; }
+.reference-icon { font-size: 2.5rem; flex-shrink: 0; }
+.reference-desc { font-size: 0.95rem; color: var(--text-primary); font-weight: 500; line-height: 1.5; margin-bottom: 0.4rem; }
+.reference-tip { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
+
+.model-info-section { margin-top: 1.5rem; margin-bottom: 1rem; }
+.model-info-section h3 { font-family: var(--font-display); font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--sky-700); margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.4rem; }
+.model-info-box { padding: 1rem; background: rgba(125,211,252,0.15); border: 1px solid var(--glass-border); border-radius: var(--radius-md); }
+.model-info-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+.model-info-name { font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; color: var(--text-primary); }
+.model-info-badge { background: rgba(251,191,36,0.35); border: 1px solid rgba(217,119,6,0.45); color: var(--amber-800); font-size: 0.75rem; font-weight: 700; padding: 0.15rem 0.6rem; border-radius: 100px; }
+.model-info-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; margin-bottom: 0.75rem; }
+.model-stat { display: flex; flex-direction: column; gap: 0.15rem; padding: 0.5rem 0.6rem; background: rgba(255,255,255,0.60); border-radius: var(--radius-sm); }
+.stat-label { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.stat-value { font-size: 0.9rem; font-weight: 700; color: var(--text-primary); }
+.stat-value.green { color: var(--mint-700); }
+.model-info-why { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
+
+/* ═══════════════════════════════════════════
+   AgriPulse v3 — Simple store-style layout
+   (top bar + chips + grid, like Amazon / YouTube)
+   ═══════════════════════════════════════════ */
+.app { max-width: 1100px; padding-top: 0; }
+
+/* Top bar */
+.topbar {
+  position: sticky; top: 0; z-index: 20;
+  margin: 0 -1.5rem 1.5rem; padding: 0.75rem 1.5rem 0.6rem;
+  background: rgba(255, 244, 184, 0.94);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-sm);
+}
+.topbar-inner { display: flex; align-items: center; gap: 1rem; }
+.brand { display: flex; align-items: center; gap: 0.5rem; cursor: pointer; flex-shrink: 0; }
+.brand-icon { font-size: 1.7rem; }
+.brand-name {
+  font-family: var(--font-display); font-weight: 800; font-size: 1.35rem;
+  background: linear-gradient(135deg, #075985, #0284c7, #15803d);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.search-box {
+  flex: 1; display: flex; align-items: center; gap: 0.5rem;
+  background: #fff; border: 1.5px solid var(--sky-300); border-radius: 100px;
+  padding: 0.5rem 1rem; transition: var(--transition-fast);
+}
+.search-box:focus-within { border-color: var(--sky-500); box-shadow: var(--shadow-glow-sky); }
+.search-box input {
+  flex: 1; border: none; outline: none; background: transparent;
+  font-family: var(--font-body); font-size: 0.95rem; color: var(--text-primary); min-width: 0;
+}
+.topbar-model { margin-top: 0; flex-shrink: 0; }
+
+/* Chips (YouTube style) */
+.chips-row { display: flex; gap: 0.5rem; margin-top: 0.7rem; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; }
+.chips-row::-webkit-scrollbar { display: none; }
+.chip {
+  flex-shrink: 0; padding: 0.4rem 1rem; border-radius: 100px; cursor: pointer;
+  background: rgba(186, 230, 253, 0.35); border: 1px solid var(--sky-200);
+  color: var(--sky-900); font-family: var(--font-body); font-size: 0.88rem; font-weight: 600;
+  transition: var(--transition-fast);
+}
+.chip:hover { background: rgba(186, 230, 253, 0.7); }
+.chip.active { background: var(--sky-900); border-color: var(--sky-900); color: #fff; }
+
+.model-panel { margin: 0 0 1.5rem; }
+
+/* Scan section */
+.scan-section { display: grid; grid-template-columns: 1fr 1.1fr; gap: 2rem; align-items: center; margin-bottom: 2.5rem; }
+.scan-intro h1 {
+  font-family: var(--font-display); font-weight: 800; line-height: 1.15;
+  font-size: clamp(1.8rem, 4vw, 2.6rem); color: var(--sky-900);
+}
+.scan-intro p { margin-top: 0.75rem; color: var(--text-muted); font-size: 1.02rem; }
+.scan-points { list-style: none; margin-top: 1.1rem; display: flex; flex-direction: column; gap: 0.4rem; color: var(--text-primary); font-size: 0.95rem; }
+.scan-card { padding: 1.5rem; }
+
+/* Crop tiles (Amazon "shop by category") */
+.crop-tiles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 2rem; }
+.crop-tile {
+  display: flex; align-items: center; gap: 1rem; padding: 1.1rem 1.25rem; text-align: left; cursor: pointer;
+  background: var(--gradient-card); border: 1.5px solid var(--sky-200); border-radius: var(--radius-lg);
+  font-family: var(--font-body); color: var(--text-primary); transition: var(--transition-smooth);
+}
+.crop-tile:hover { border-color: var(--sky-400); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.crop-tile.active { border-color: var(--mint-600); background: var(--mint-100); }
+.crop-tile-icon { font-size: 2.4rem; }
+.crop-tile strong { display: block; font-family: var(--font-display); font-size: 1.15rem; }
+.crop-tile small { color: var(--text-muted); font-size: 0.82rem; }
+
+/* Library grid (Flipkart style product cards) */
+.library-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 1rem; }
+.library-head h2 { font-family: var(--font-display); font-size: 1.3rem; color: var(--sky-900); }
+.library-head span { font-size: 0.85rem; color: var(--text-muted); }
+.library-empty { text-align: center; padding: 2rem; color: var(--text-muted); }
+.lib-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+.lib-card {
+  display: flex; flex-direction: column; text-align: left; cursor: pointer; overflow: hidden; padding: 0;
+  background: #fff; border: 1px solid var(--sky-200); border-radius: var(--radius-lg);
+  font-family: var(--font-body); transition: var(--transition-smooth);
+}
+.lib-card:hover { transform: translateY(-3px); border-color: var(--sky-400); box-shadow: var(--shadow-md); }
+.lib-thumb { height: 110px; display: flex; align-items: center; justify-content: center; font-size: 3.2rem; }
+.sev-bg-none     { background: linear-gradient(135deg, var(--mint-100), var(--mint-200)); }
+.sev-bg-moderate { background: linear-gradient(135deg, var(--yellow-100), var(--yellow-300)); }
+.sev-bg-severe   { background: linear-gradient(135deg, #fee2e2, #fecaca); }
+.lib-body { padding: 0.8rem 0.9rem 1rem; display: flex; flex-direction: column; gap: 0.3rem; }
+.lib-crop { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sky-700); }
+.lib-name { font-family: var(--font-display); font-weight: 700; font-size: 0.98rem; color: var(--text-primary); line-height: 1.25; }
+.sev-pill { align-self: flex-start; display: inline-block; padding: 0.12rem 0.6rem; border-radius: 100px; font-size: 0.72rem; font-weight: 700; margin-top: 0.2rem; }
+.sev-none     { background: var(--ok-bg);     color: var(--ok-text);     border: 1px solid var(--ok-border); }
+.sev-moderate { background: var(--warn-bg);   color: var(--warn-text);   border: 1px solid var(--warn-border); }
+.sev-severe   { background: var(--danger-bg); color: var(--danger-text); border: 1px solid var(--danger-border); }
+
+/* Detail modal */
+.modal-overlay { position: fixed; inset: 0; z-index: 50; background: rgba(12, 74, 110, 0.35); display: flex; align-items: center; justify-content: center; padding: 1rem; animation: slide-down 0.2s ease both; }
+.modal-box { position: relative; width: 100%; max-width: 560px; max-height: 85vh; overflow-y: auto; background: var(--yellow-50); border: 1px solid var(--sky-300); border-radius: var(--radius-xl); padding: 1.75rem; box-shadow: var(--shadow-lg); }
+.modal-close { position: absolute; top: 0.8rem; right: 0.9rem; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--sky-300); background: #fff; font-size: 1.3rem; color: var(--sky-900); cursor: pointer; line-height: 1; }
+.modal-close:hover { background: var(--sky-100); }
+.modal-head { display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem; }
+.modal-icon { font-size: 3rem; }
+.modal-title { font-family: var(--font-display); font-size: 1.5rem; line-height: 1.2; color: var(--text-primary); }
+.modal-desc { background: rgba(125, 211, 252, 0.18); border: 1px solid var(--glass-border); border-radius: var(--radius-md); padding: 0.8rem 1rem; font-size: 0.95rem; }
+.modal-h { font-family: var(--font-display); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--sky-700); margin: 1.2rem 0 0.5rem; }
+.modal-list { padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.93rem; line-height: 1.5; }
+.modal-list li::marker { color: var(--mint-600); font-weight: 700; }
+
+/* Result: uploaded photo beside diagnosis */
+.result-hero.has-photo { display: grid; grid-template-columns: 260px 1fr; gap: 1.5rem; align-items: start; }
+.result-photo { position: relative; }
+.result-photo img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: var(--radius-lg); border: 2px solid var(--sky-300); box-shadow: var(--shadow-md); display: block; }
+.result-photo span { position: absolute; left: 10px; bottom: 10px; background: rgba(255,255,255,0.92); color: var(--sky-900); font-size: 0.72rem; font-weight: 700; padding: 0.15rem 0.6rem; border-radius: 100px; }
+
+@media (max-width: 760px) {
+  .topbar { margin: 0 -1rem 1rem; padding: 0.6rem 1rem; }
+  .topbar-inner { flex-wrap: wrap; }
+  .search-box { order: 3; flex-basis: 100%; }
+  .scan-section { grid-template-columns: 1fr; }
+  .result-hero.has-photo { grid-template-columns: 1fr; }
+  .result-photo { max-width: 260px; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   AgriPulse v4 — Hindi switch + YouTube prevention links
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Devanagari-friendly font when Hindi is on */
+html:lang(hi) body,
+html:lang(hi) button,
+html:lang(hi) input,
+html:lang(hi) h1, html:lang(hi) h2, html:lang(hi) h3 {
+  font-family: 'Noto Sans Devanagari', var(--font-body), sans-serif;
+}
+
+/* EN | हिंदी on/off switch */
+.lang-switch {
+  display: inline-flex; flex-shrink: 0; padding: 3px;
+  background: #fff; border: 1.5px solid var(--sky-300); border-radius: 100px;
+}
+.lang-switch button {
+  border: none; background: transparent; cursor: pointer;
+  padding: 0.3rem 0.8rem; border-radius: 100px;
+  font-weight: 700; font-size: 0.85rem; color: var(--sky-900);
+  font-family: var(--font-body); transition: var(--transition-fast);
+}
+.lang-switch button:hover { background: var(--sky-100); }
+.lang-switch button.active { background: var(--sky-900); color: #fff; }
+
+/* YouTube links */
+.video-section { margin-top: 1.5rem; }
+.video-section h3 { font-family: var(--font-display); font-size: 1.05rem; color: var(--text-primary); margin-bottom: 0.25rem; }
+.video-note { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.7rem; }
+.video-list { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.video-link {
+  display: inline-flex; align-items: center; gap: 0.55rem;
+  padding: 0.55rem 0.95rem; border-radius: 100px;
+  background: #fff; border: 1.5px solid rgba(220, 38, 38, 0.35);
+  color: var(--text-primary); font-size: 0.88rem; font-weight: 600;
+  text-decoration: none; transition: var(--transition-fast);
+}
+.video-link:hover { background: #fff1f1; border-color: var(--red-600); transform: translateY(-1px); }
+.yt-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 1.55rem; height: 1.1rem; border-radius: 6px;
+  background: #ff0000; color: #fff; font-size: 0.6rem; line-height: 1;
+}
+.modal-box .video-section { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid rgba(0,0,0,0.08); }
+
+@media (max-width: 720px) {
+  .topbar-inner { flex-wrap: wrap; }
+  .lang-switch { margin-left: auto; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   AgriPulse v5 — Blue highlight on the main scan area (deeper blue)
+   ═══════════════════════════════════════════════════════════════════ */
+.scan-section {
+  padding: 2rem;
+  background: linear-gradient(135deg, var(--sky-300) 0%, var(--sky-200) 55%, var(--sky-300) 100%);
+  border: 1.5px solid var(--sky-500);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.scan-intro h1 { color: var(--sky-900); }
+.scan-intro p,
+.scan-points { color: #0b3a57; }
+
+.scan-card {
+  background: linear-gradient(160deg, #ffffff 0%, var(--sky-100) 100%);
+  border: 2px solid var(--sky-700);
+  box-shadow: var(--shadow-lg), 0 0 0 6px rgba(14, 165, 233, 0.28);
+}
+
+.scan-card:hover {
+  border-color: var(--sky-700);
+  box-shadow: var(--shadow-lg), 0 0 0 8px rgba(14, 165, 233, 0.38), var(--shadow-glow-sky);
+}
+
+.scan-card .drop-zone {
+  background: rgba(125, 211, 252, 0.55);
+  border-color: var(--sky-700);
+}
+
+.scan-card .drop-zone:hover,
+.scan-card .drop-zone.drag-active {
+  background: rgba(56, 189, 248, 0.45);
+}
+
+@media (max-width: 760px) {
+  .scan-section { padding: 1.1rem; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   AgriPulse v6 — 3D top bar (less yellow) + real disease photos
+   ═══════════════════════════════════════════════════════════════════ */
+.topbar {
+  background: linear-gradient(180deg, #ffffff 0%, #f1f9ff 55%, #dff1fd 100%);
+  border-bottom: 1px solid var(--sky-300);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 1),          /* top highlight */
+    inset 0 -3px 0 rgba(14, 165, 233, 0.18),       /* bottom lip */
+    0 4px 0 var(--sky-300),                        /* raised edge */
+    0 12px 24px rgba(12, 74, 110, 0.22);           /* floor shadow */
+}
+
+.topbar .search-box {
+  background: #fff;
+  border: 1.5px solid var(--sky-300);
+  box-shadow: inset 0 3px 6px rgba(12, 74, 110, 0.14), 0 1px 0 #fff;
+}
+
+.topbar .chip {
+  background: linear-gradient(180deg, #ffffff, var(--sky-100));
+  border: 1px solid var(--sky-300);
+  box-shadow: 0 3px 0 var(--sky-300), 0 5px 8px rgba(12, 74, 110, 0.15);
+  transform: translateY(-1px);
+}
+.topbar .chip:hover { transform: translateY(0); box-shadow: 0 2px 0 var(--sky-300), 0 3px 6px rgba(12, 74, 110, 0.15); }
+.topbar .chip:active { transform: translateY(2px); box-shadow: 0 0 0 var(--sky-300); }
+.topbar .chip.active {
+  background: linear-gradient(180deg, #14608f, var(--sky-900));
+  border-color: var(--sky-900);
+  box-shadow: 0 3px 0 #06293f, 0 5px 8px rgba(12, 74, 110, 0.35);
+}
+
+.topbar .lang-switch,
+.topbar .model-toggle-btn {
+  box-shadow: 0 3px 0 var(--sky-300), 0 5px 8px rgba(12, 74, 110, 0.15);
+}
+.topbar .model-toggle-btn { background: linear-gradient(180deg, #ffffff, var(--sky-100)); }
+
+/* Real disease photos */
+.lib-thumb { position: relative; overflow: hidden; }
+.disease-photo { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
+.lib-card:hover .disease-photo { transform: scale(1.06); }
+.thumb-emoji { font-size: 3.2rem; line-height: 1; }
+.lib-thumb { height: 150px; }
+
+.modal-icon { display: inline-flex; flex-shrink: 0; }
+.modal-icon .modal-photo { width: 96px; height: 96px; border-radius: var(--radius-md); border: 2px solid var(--sky-300); box-shadow: var(--shadow-md); }
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   AgriPulse v8 — Dark pen-sketch leaf shadows
+   Layer 1: crisp, dark ink branches with a lighter ghost shadow behind
+   Layer 2: the yellow gradient. Cards and panels sit on top, unchanged.
+   ═══════════════════════════════════════════════════════════════════ */
+body {
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22720%22%20height%3D%22720%22%20viewBox%3D%220%200%20720%20720%22%3E%3Cdefs%3E%3Cfilter%20id%3D%22g%22%20x%3D%22-10%25%22%20y%3D%22-10%25%22%20width%3D%22120%25%22%20height%3D%22120%25%22%3E%3CfeGaussianBlur%20stdDeviation%3D%225%22/%3E%3C/filter%3E%3Cg%20id%3D%22br%22%3E%3Cpath%20d%3D%22M40%2C120%20Q200%2C40%20330%2C150%22%20stroke%3D%22%231c2308%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22/%3E%3Cg%20transform%3D%22translate%2885.1%20101.0%29%20rotate%2825.7%29%22%3E%3Cpath%20d%3D%22M0%2C0%20C17.3%2C-23.5%2053.4%2C-22.4%2078.5%2C0%20C54.9%2C21.2%2018.8%2C24.0%200%2C0%20Z%22%20fill%3D%22%231c2308%22%20fill-opacity%3D%22.72%22/%3E%3Cpath%20d%3D%22M0%2C0%20C17.3%2C-23.5%2053.4%2C-22.4%2078.5%2C0%20C54.9%2C21.2%2018.8%2C24.0%200%2C0%20Z%22%20fill%3D%22none%22%20stroke%3D%22%231c2308%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22%20transform%3D%22rotate%282.5%29%20scale%281.04%29%22/%3E%3Cpath%20d%3D%22M5%2C0%20L73.0%2C0%20M22.0%2C0%20L35.3%2C-12.9%20M22.0%2C0%20L35.3%2C12.9%20M39.2%2C0%20L52.6%2C-12.9%20M39.2%2C0%20L52.6%2C12.9%20M56.5%2C0%20L69.8%2C-12.9%20M56.5%2C0%20L69.8%2C12.9%22%20stroke%3D%22%23ffe27a%22%20stroke-width%3D%221.5%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.8%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28129.0%2089.8%29%20rotate%28-60.7%29%22%3E%3Cpath%20d%3D%22M0%2C0%20C16.7%2C-22.8%2051.6%2C-21.6%2075.9%2C0%20C53.2%2C20.5%2018.2%2C23.2%200%2C0%20Z%22%20fill%3D%22%231c2308%22%20fill-opacity%3D%22.72%22/%3E%3Cpath%20d%3D%22M0%2C0%20C16.7%2C-22.8%2051.6%2C-21.6%2075.9%2C0%20C53.2%2C20.5%2018.2%2C23.2%200%2C0%20Z%22%20fill%3D%22none%22%20stroke%3D%22%231c2308%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22%20transform%3D%22rotate%282.5%29%20scale%281.04%29%22/%3E%3Cpath%20d%3D%22M5%2C0%20L70.6%2C0%20M21.3%2C0%20L34.2%2C-12.5%20M21.3%2C0%20L34.2%2C12.5%20M38.0%2C0%20L50.9%2C-12.5%20M38.0%2C0%20L50.9%2C12.5%20M54.7%2C0%20L67.6%2C-12.5%20M54.7%2C0%20L67.6%2C12.5%22%20stroke%3D%22%23ffe27a%22%20stroke-width%3D%221.5%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.8%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28171.6%2086.3%29%20rotate%2849.3%29%22%3E%3Cpath%20d%3D%22M0%2C0%20C18.8%2C-25.6%2058.1%2C-24.3%2085.4%2C0%20C59.8%2C23.1%2020.5%2C26.1%200%2C0%20Z%22%20fill%3D%22%231c2308%22%20fill-opacity%3D%22.72%22/%3E%3Cpath%20d%3D%22M0%2C0%20C18.8%2C-25.6%2058.1%2C-24.3%2085.4%2C0%20C59.8%2C23.1%2020.5%2C26.1%200%2C0%20Z%22%20fill%3D%22none%22%20stroke%3D%22%231c2308%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22%20transform%3D%22rotate%282.5%29%20scale%281.04%29%22/%3E%3Cpath%20d%3D%22M5%2C0%20L79.4%2C0%20M23.9%2C0%20L38.4%2C-14.1%20M23.9%2C0%20L38.4%2C14.1%20M42.7%2C0%20L57.2%2C-14.1%20M42.7%2C0%20L57.2%2C14.1%20M61.5%2C0%20L76.0%2C-14.1%20M61.5%2C0%20L76.0%2C14.1%22%20stroke%3D%22%23ffe27a%22%20stroke-width%3D%221.5%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.8%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28213.1%2090.6%29%20rotate%28-27.9%29%22%3E%3Cpath%20d%3D%22M0%2C0%20C19.8%2C-27.0%2061.2%2C-25.6%2089.9%2C0%20C63.0%2C24.3%2021.6%2C27.5%200%2C0%20Z%22%20fill%3D%22%231c2308%22%20fill-opacity%3D%22.72%22/%3E%3Cpath%20d%3D%22M0%2C0%20C19.8%2C-27.0%2061.2%2C-25.6%2089.9%2C0%20C63.0%2C24.3%2021.6%2C27.5%200%2C0%20Z%22%20fill%3D%22none%22%20stroke%3D%22%231c2308%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22%20transform%3D%22rotate%282.5%29%20scale%281.04%29%22/%3E%3Cpath%20d%3D%22M5%2C0%20L83.6%2C0%20M25.2%2C0%20L40.5%2C-14.8%20M25.2%2C0%20L40.5%2C14.8%20M45.0%2C0%20L60.3%2C-14.8%20M45.0%2C0%20L60.3%2C14.8%20M64.8%2C0%20L80.0%2C-14.8%20M64.8%2C0%20L80.0%2C14.8%22%20stroke%3D%22%23ffe27a%22%20stroke-width%3D%221.5%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.8%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28253.3%20102.7%29%20rotate%2860.7%29%22%3E%3Cpath%20d%3D%22M0%2C0%20C19.3%2C-26.3%2059.5%2C-25.0%2087.6%2C0%20C61.3%2C23.6%2021.0%2C26.8%200%2C0%20Z%22%20fill%3D%22%231c2308%22%20fill-opacity%3D%22.72%22/%3E%3Cpath%20d%3D%22M0%2C0%20C19.3%2C-26.3%2059.5%2C-25.0%2087.6%2C0%20C61.3%2C23.6%2021.0%2C26.8%200%2C0%20Z%22%20fill%3D%22none%22%20stroke%3D%22%231c2308%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22%20transform%3D%22rotate%282.5%29%20scale%281.04%29%22/%3E%3Cpath%20d%3D%22M5%2C0%20L81.4%2C0%20M24.5%2C0%20L39.4%2C-14.4%20M24.5%2C0%20L39.4%2C14.4%20M43.8%2C0%20L58.7%2C-14.4%20M43.8%2C0%20L58.7%2C14.4%20M63.0%2C0%20L77.9%2C-14.4%20M63.0%2C0%20L77.9%2C14.4%22%20stroke%3D%22%23ffe27a%22%20stroke-width%3D%221.5%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.8%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28292.2%20122.4%29%20rotate%28-7.7%29%22%3E%3Cpath%20d%3D%22M0%2C0%20C16.8%2C-23.0%2052.0%2C-21.8%2076.5%2C0%20C53.6%2C20.7%2018.4%2C23.4%200%2C0%20Z%22%20fill%3D%22%231c2308%22%20fill-opacity%3D%22.72%22/%3E%3Cpath%20d%3D%22M0%2C0%20C16.8%2C-23.0%2052.0%2C-21.8%2076.5%2C0%20C53.6%2C20.7%2018.4%2C23.4%200%2C0%20Z%22%20fill%3D%22none%22%20stroke%3D%22%231c2308%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22%20transform%3D%22rotate%282.5%29%20scale%281.04%29%22/%3E%3Cpath%20d%3D%22M5%2C0%20L71.2%2C0%20M21.4%2C0%20L34.4%2C-12.6%20M21.4%2C0%20L34.4%2C12.6%20M38.3%2C0%20L51.3%2C-12.6%20M38.3%2C0%20L51.3%2C12.6%20M55.1%2C0%20L68.1%2C-12.6%20M55.1%2C0%20L68.1%2C12.6%22%20stroke%3D%22%23ffe27a%22%20stroke-width%3D%221.5%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.8%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28330.0%20150.0%29%20rotate%2840.2%29%22%3E%3Cpath%20d%3D%22M0%2C0%20C22.3%2C-30.4%2068.8%2C-28.8%20101.2%2C0%20C70.8%2C27.3%2024.3%2C31.0%200%2C0%20Z%22%20fill%3D%22%231c2308%22%20fill-opacity%3D%22.72%22/%3E%3Cpath%20d%3D%22M0%2C0%20C22.3%2C-30.4%2068.8%2C-28.8%20101.2%2C0%20C70.8%2C27.3%2024.3%2C31.0%200%2C0%20Z%22%20fill%3D%22none%22%20stroke%3D%22%231c2308%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22%20transform%3D%22rotate%282.5%29%20scale%281.04%29%22/%3E%3Cpath%20d%3D%22M5%2C0%20L94.1%2C0%20M28.3%2C0%20L45.5%2C-16.7%20M28.3%2C0%20L45.5%2C16.7%20M50.6%2C0%20L67.8%2C-16.7%20M50.6%2C0%20L67.8%2C16.7%20M72.9%2C0%20L90.1%2C-16.7%20M72.9%2C0%20L90.1%2C16.7%22%20stroke%3D%22%23ffe27a%22%20stroke-width%3D%221.5%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.8%22/%3E%3C/g%3E%3Cpath%20d%3D%22M420%2C330%20Q560%2C470%20690%2C400%22%20stroke%3D%22%231c2308%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22/%3E%3Cg%20transform%3D%22translate%28459.8%20365.7%29%20rotate%2884.9%29%22%3E%3Cpath%20d%3D%22M0%2C0%20C20.1%2C-27.5%2062.2%2C-26.1%2091.5%2C0%20C64.1%2C24.7%2022.0%2C28.0%200%2C0%20Z%22%20fill%3D%22%231c2308%22%20fill-opacity%3D%22.72%22/%3E%3Cpath%20d%3D%22M0%2C0%20C20.1%2C-27.5%2062.2%2C-26.1%2091.5%2C0%20C64.1%2C24.7%2022.0%2C28.0%200%2C0%20Z%22%20fill%3D%22none%22%20stroke%3D%22%231c2308%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22%20transform%3D%22rotate%282.5%29%20scale%281.04%29%22/%3E%3Cpath%20d%3D%22M5%2C0%20L85.1%2C0%20M25.6%2C0%20L41.2%2C-15.1%20M25.6%2C0%20L41.2%2C15.1%20M45.8%2C0%20L61.3%2C-15.1%20M45.8%2C0%20L61.3%2C15.1%20M65.9%2C0%20L81.4%2C-15.1%20M65.9%2C0%20L81.4%2C15.1%22%20stroke%3D%22%23ffe27a%22%20stroke-width%3D%221.5%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.8%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28499.2%20392.9%29%20rotate%28-10.2%29%22%3E%3Cpath%20d%3D%22M0%2C0%20C16.2%2C-22.1%2050.2%2C-21.0%2073.8%2C0%20C51.6%2C19.9%2017.7%2C22.6%200%2C0%20Z%22%20fill%3D%22%231c2308%22%20fill-opacity%3D%22.72%22/%3E%3Cpath%20d%3D%22M0%2C0%20C16.2%2C-22.1%2050.2%2C-21.0%2073.8%2C0%20C51.6%2C19.9%2017.7%2C22.6%200%2C0%20Z%22%20fill%3D%22none%22%20stroke%3D%22%231c2308%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22%20transform%3D%22rotate%282.5%29%20scale%281.04%29%22/%3E%3Cpath%20d%3D%22M5%2C0%20L68.6%2C0%20M20.7%2C0%20L33.2%2C-12.2%20M20.7%2C0%20L33.2%2C12.2%20M36.9%2C0%20L49.4%2C-12.2%20M36.9%2C0%20L49.4%2C12.2%20M53.1%2C0%20L65.6%2C-12.2%20M53.1%2C0%20L65.6%2C12.2%22%20stroke%3D%22%23ffe27a%22%20stroke-width%3D%221.5%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.8%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28538.2%20411.4%29%20rotate%2870.8%29%22%3E%3Cpath%20d%3D%22M0%2C0%20C20.9%2C-28.5%2064.6%2C-27.1%2095.1%2C0%20C66.5%2C25.7%2022.8%2C29.1%200%2C0%20Z%22%20fill%3D%22%231c2308%22%20fill-opacity%3D%22.72%22/%3E%3Cpath%20d%3D%22M0%2C0%20C20.9%2C-28.5%2064.6%2C-27.1%2095.1%2C0%20C66.5%2C25.7%2022.8%2C29.1%200%2C0%20Z%22%20fill%3D%22none%22%20stroke%3D%22%231c2308%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22%20transform%3D%22rotate%282.5%29%20scale%281.04%29%22/%3E%3Cpath%20d%3D%22M5%2C0%20L88.4%2C0%20M26.6%2C0%20L42.8%2C-15.7%20M26.6%2C0%20L42.8%2C15.7%20M47.5%2C0%20L63.7%2C-15.7%20M47.5%2C0%20L63.7%2C15.7%20M68.4%2C0%20L84.6%2C-15.7%20M68.4%2C0%20L84.6%2C15.7%22%20stroke%3D%22%23ffe27a%22%20stroke-width%3D%221.5%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.8%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28576.7%20421.4%29%20rotate%28-41.1%29%22%3E%3Cpath%20d%3D%22M0%2C0%20C17.3%2C-23.7%2053.6%2C-22.5%2078.9%2C0%20C55.2%2C21.3%2018.9%2C24.1%200%2C0%20Z%22%20fill%3D%22%231c2308%22%20fill-opacity%3D%22.72%22/%3E%3Cpath%20d%3D%22M0%2C0%20C17.3%2C-23.7%2053.6%2C-22.5%2078.9%2C0%20C55.2%2C21.3%2018.9%2C24.1%200%2C0%20Z%22%20fill%3D%22none%22%20stroke%3D%22%231c2308%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22%20transform%3D%22rotate%282.5%29%20scale%281.04%29%22/%3E%3Cpath%20d%3D%22M5%2C0%20L73.3%2C0%20M22.1%2C0%20L35.5%2C-13.0%20M22.1%2C0%20L35.5%2C13.0%20M39.4%2C0%20L52.8%2C-13.0%20M39.4%2C0%20L52.8%2C13.0%20M56.8%2C0%20L70.2%2C-13.0%20M56.8%2C0%20L70.2%2C13.0%22%20stroke%3D%22%23ffe27a%22%20stroke-width%3D%221.5%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.8%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28614.9%20422.9%29%20rotate%2853.2%29%22%3E%3Cpath%20d%3D%22M0%2C0%20C15.1%2C-20.6%2046.6%2C-19.5%2068.6%2C0%20C48.0%2C18.5%2016.5%2C21.0%200%2C0%20Z%22%20fill%3D%22%231c2308%22%20fill-opacity%3D%22.72%22/%3E%3Cpath%20d%3D%22M0%2C0%20C15.1%2C-20.6%2046.6%2C-19.5%2068.6%2C0%20C48.0%2C18.5%2016.5%2C21.0%200%2C0%20Z%22%20fill%3D%22none%22%20stroke%3D%22%231c2308%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22%20transform%3D%22rotate%282.5%29%20scale%281.04%29%22/%3E%3Cpath%20d%3D%22M5%2C0%20L63.8%2C0%20M19.2%2C0%20L30.9%2C-11.3%20M19.2%2C0%20L30.9%2C11.3%20M34.3%2C0%20L45.9%2C-11.3%20M34.3%2C0%20L45.9%2C11.3%20M49.4%2C0%20L61.0%2C-11.3%20M49.4%2C0%20L61.0%2C11.3%22%20stroke%3D%22%23ffe27a%22%20stroke-width%3D%221.5%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.8%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28652.7%20415.7%29%20rotate%28-72.1%29%22%3E%3Cpath%20d%3D%22M0%2C0%20C16.7%2C-22.7%2051.5%2C-21.6%2075.7%2C0%20C53.0%2C20.4%2018.2%2C23.2%200%2C0%20Z%22%20fill%3D%22%231c2308%22%20fill-opacity%3D%22.72%22/%3E%3Cpath%20d%3D%22M0%2C0%20C16.7%2C-22.7%2051.5%2C-21.6%2075.7%2C0%20C53.0%2C20.4%2018.2%2C23.2%200%2C0%20Z%22%20fill%3D%22none%22%20stroke%3D%22%231c2308%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22%20transform%3D%22rotate%282.5%29%20scale%281.04%29%22/%3E%3Cpath%20d%3D%22M5%2C0%20L70.4%2C0%20M21.2%2C0%20L34.1%2C-12.5%20M21.2%2C0%20L34.1%2C12.5%20M37.9%2C0%20L50.7%2C-12.5%20M37.9%2C0%20L50.7%2C12.5%20M54.5%2C0%20L67.4%2C-12.5%20M54.5%2C0%20L67.4%2C12.5%22%20stroke%3D%22%23ffe27a%22%20stroke-width%3D%221.5%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.8%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28690.0%20400.0%29%20rotate%28-28.3%29%22%3E%3Cpath%20d%3D%22M0%2C0%20C20.3%2C-27.7%2062.8%2C-26.3%2092.4%2C0%20C64.7%2C24.9%2022.2%2C28.3%200%2C0%20Z%22%20fill%3D%22%231c2308%22%20fill-opacity%3D%22.72%22/%3E%3Cpath%20d%3D%22M0%2C0%20C20.3%2C-27.7%2062.8%2C-26.3%2092.4%2C0%20C64.7%2C24.9%2022.2%2C28.3%200%2C0%20Z%22%20fill%3D%22none%22%20stroke%3D%22%231c2308%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22%20transform%3D%22rotate%282.5%29%20scale%281.04%29%22/%3E%3Cpath%20d%3D%22M5%2C0%20L85.9%2C0%20M25.9%2C0%20L41.6%2C-15.2%20M25.9%2C0%20L41.6%2C15.2%20M46.2%2C0%20L61.9%2C-15.2%20M46.2%2C0%20L61.9%2C15.2%20M66.5%2C0%20L82.2%2C-15.2%20M66.5%2C0%20L82.2%2C15.2%22%20stroke%3D%22%23ffe27a%22%20stroke-width%3D%221.5%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.8%22/%3E%3C/g%3E%3Cpath%20d%3D%22M60%2C560%20Q170%2C470%20300%2C600%22%20stroke%3D%22%231c2308%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22/%3E%3Cg%20transform%3D%22translate%2897.2%20536.1%29%20rotate%2815.7%29%22%3E%3Cpath%20d%3D%22M0%2C0%20C14.4%2C-19.7%2044.6%2C-18.7%2065.6%2C0%20C45.9%2C17.7%2015.7%2C20.1%200%2C0%20Z%22%20fill%3D%22%231c2308%22%20fill-opacity%3D%22.72%22/%3E%3Cpath%20d%3D%22M0%2C0%20C14.4%2C-19.7%2044.6%2C-18.7%2065.6%2C0%20C45.9%2C17.7%2015.7%2C20.1%200%2C0%20Z%22%20fill%3D%22none%22%20stroke%3D%22%231c2308%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22%20transform%3D%22rotate%282.5%29%20scale%281.04%29%22/%3E%3Cpath%20d%3D%22M5%2C0%20L61.0%2C0%20M18.4%2C0%20L29.5%2C-10.8%20M18.4%2C0%20L29.5%2C10.8%20M32.8%2C0%20L44.0%2C-10.8%20M32.8%2C0%20L44.0%2C10.8%20M47.2%2C0%20L58.4%2C-10.8%20M47.2%2C0%20L58.4%2C10.8%22%20stroke%3D%22%23ffe27a%22%20stroke-width%3D%221.5%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.8%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28135.6%20524.4%29%20rotate%28-52.3%29%22%3E%3Cpath%20d%3D%22M0%2C0%20C18.6%2C-25.4%2057.6%2C-24.1%2084.7%2C0%20C59.3%2C22.9%2020.3%2C25.9%200%2C0%20Z%22%20fill%3D%22%231c2308%22%20fill-opacity%3D%22.72%22/%3E%3Cpath%20d%3D%22M0%2C0%20C18.6%2C-25.4%2057.6%2C-24.1%2084.7%2C0%20C59.3%2C22.9%2020.3%2C25.9%200%2C0%20Z%22%20fill%3D%22none%22%20stroke%3D%22%231c2308%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22%20transform%3D%22rotate%282.5%29%20scale%281.04%29%22/%3E%3Cpath%20d%3D%22M5%2C0%20L78.8%2C0%20M23.7%2C0%20L38.1%2C-14.0%20M23.7%2C0%20L38.1%2C14.0%20M42.3%2C0%20L56.7%2C-14.0%20M42.3%2C0%20L56.7%2C14.0%20M61.0%2C0%20L75.4%2C-14.0%20M61.0%2C0%20L75.4%2C14.0%22%20stroke%3D%22%23ffe27a%22%20stroke-width%3D%221.5%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.8%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28175.0%20525.0%29%20rotate%2851.1%29%22%3E%3Cpath%20d%3D%22M0%2C0%20C17.2%2C-23.5%2053.2%2C-22.3%2078.3%2C0%20C54.8%2C21.1%2018.8%2C24.0%200%2C0%20Z%22%20fill%3D%22%231c2308%22%20fill-opacity%3D%22.72%22/%3E%3Cpath%20d%3D%22M0%2C0%20C17.2%2C-23.5%2053.2%2C-22.3%2078.3%2C0%20C54.8%2C21.1%2018.8%2C24.0%200%2C0%20Z%22%20fill%3D%22none%22%20stroke%3D%22%231c2308%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22%20transform%3D%22rotate%282.5%29%20scale%281.04%29%22/%3E%3Cpath%20d%3D%22M5%2C0%20L72.8%2C0%20M21.9%2C0%20L35.2%2C-12.9%20M21.9%2C0%20L35.2%2C12.9%20M39.1%2C0%20L52.4%2C-12.9%20M39.1%2C0%20L52.4%2C12.9%20M56.4%2C0%20L69.7%2C-12.9%20M56.4%2C0%20L69.7%2C12.9%22%20stroke%3D%22%23ffe27a%22%20stroke-width%3D%221.5%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.8%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28215.6%20537.8%29%20rotate%28-26.1%29%22%3E%3Cpath%20d%3D%22M0%2C0%20C16.0%2C-21.8%2049.3%2C-20.7%2072.6%2C0%20C50.8%2C19.6%2017.4%2C22.2%200%2C0%20Z%22%20fill%3D%22%231c2308%22%20fill-opacity%3D%22.72%22/%3E%3Cpath%20d%3D%22M0%2C0%20C16.0%2C-21.8%2049.3%2C-20.7%2072.6%2C0%20C50.8%2C19.6%2017.4%2C22.2%200%2C0%20Z%22%20fill%3D%22none%22%20stroke%3D%22%231c2308%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22%20transform%3D%22rotate%282.5%29%20scale%281.04%29%22/%3E%3Cpath%20d%3D%22M5%2C0%20L67.5%2C0%20M20.3%2C0%20L32.7%2C-12.0%20M20.3%2C0%20L32.7%2C12.0%20M36.3%2C0%20L48.6%2C-12.0%20M36.3%2C0%20L48.6%2C12.0%20M52.2%2C0%20L64.6%2C-12.0%20M52.2%2C0%20L64.6%2C12.0%22%20stroke%3D%22%23ffe27a%22%20stroke-width%3D%221.5%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.8%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28257.2%20562.8%29%20rotate%2885.3%29%22%3E%3Cpath%20d%3D%22M0%2C0%20C14.1%2C-19.2%2043.6%2C-18.3%2064.1%2C0%20C44.9%2C17.3%2015.4%2C19.6%200%2C0%20Z%22%20fill%3D%22%231c2308%22%20fill-opacity%3D%22.72%22/%3E%3Cpath%20d%3D%22M0%2C0%20C14.1%2C-19.2%2043.6%2C-18.3%2064.1%2C0%20C44.9%2C17.3%2015.4%2C19.6%200%2C0%20Z%22%20fill%3D%22none%22%20stroke%3D%22%231c2308%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22%20transform%3D%22rotate%282.5%29%20scale%281.04%29%22/%3E%3Cpath%20d%3D%22M5%2C0%20L59.6%2C0%20M18.0%2C0%20L28.9%2C-10.6%20M18.0%2C0%20L28.9%2C10.6%20M32.1%2C0%20L43.0%2C-10.6%20M32.1%2C0%20L43.0%2C10.6%20M46.2%2C0%20L57.1%2C-10.6%20M46.2%2C0%20L57.1%2C10.6%22%20stroke%3D%22%23ffe27a%22%20stroke-width%3D%221.5%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.8%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28300.0%20600.0%29%20rotate%2845.0%29%22%3E%3Cpath%20d%3D%22M0%2C0%20C18.9%2C-25.7%2058.3%2C-24.5%2085.8%2C0%20C60.1%2C23.2%2020.6%2C26.3%200%2C0%20Z%22%20fill%3D%22%231c2308%22%20fill-opacity%3D%22.72%22/%3E%3Cpath%20d%3D%22M0%2C0%20C18.9%2C-25.7%2058.3%2C-24.5%2085.8%2C0%20C60.1%2C23.2%2020.6%2C26.3%200%2C0%20Z%22%20fill%3D%22none%22%20stroke%3D%22%231c2308%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22%20transform%3D%22rotate%282.5%29%20scale%281.04%29%22/%3E%3Cpath%20d%3D%22M5%2C0%20L79.8%2C0%20M24.0%2C0%20L38.6%2C-14.2%20M24.0%2C0%20L38.6%2C14.2%20M42.9%2C0%20L57.5%2C-14.2%20M42.9%2C0%20L57.5%2C14.2%20M61.8%2C0%20L76.4%2C-14.2%20M61.8%2C0%20L76.4%2C14.2%22%20stroke%3D%22%23ffe27a%22%20stroke-width%3D%221.5%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.8%22/%3E%3C/g%3E%3Cpath%20d%3D%22M480%2C40%20Q560%2C130%20640%2C60%22%20stroke%3D%22%231c2308%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22/%3E%3Cg%20transform%3D%22translate%28512.0%2069.6%29%20rotate%2875.1%29%22%3E%3Cpath%20d%3D%22M0%2C0%20C13.4%2C-18.3%2041.5%2C-17.4%2061.0%2C0%20C42.7%2C16.5%2014.7%2C18.7%200%2C0%20Z%22%20fill%3D%22%231c2308%22%20fill-opacity%3D%22.72%22/%3E%3Cpath%20d%3D%22M0%2C0%20C13.4%2C-18.3%2041.5%2C-17.4%2061.0%2C0%20C42.7%2C16.5%2014.7%2C18.7%200%2C0%20Z%22%20fill%3D%22none%22%20stroke%3D%22%231c2308%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22%20transform%3D%22rotate%282.5%29%20scale%281.04%29%22/%3E%3Cpath%20d%3D%22M5%2C0%20L56.8%2C0%20M17.1%2C0%20L27.5%2C-10.1%20M17.1%2C0%20L27.5%2C10.1%20M30.5%2C0%20L40.9%2C-10.1%20M30.5%2C0%20L40.9%2C10.1%20M44.0%2C0%20L54.3%2C-10.1%20M44.0%2C0%20L54.3%2C10.1%22%20stroke%3D%22%23ffe27a%22%20stroke-width%3D%221.5%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.8%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28544.0%2086.4%29%20rotate%28-33.6%29%22%3E%3Cpath%20d%3D%22M0%2C0%20C14.6%2C-19.9%2045.2%2C-18.9%2066.5%2C0%20C46.5%2C17.9%2016.0%2C20.3%200%2C0%20Z%22%20fill%3D%22%231c2308%22%20fill-opacity%3D%22.72%22/%3E%3Cpath%20d%3D%22M0%2C0%20C14.6%2C-19.9%2045.2%2C-18.9%2066.5%2C0%20C46.5%2C17.9%2016.0%2C20.3%200%2C0%20Z%22%20fill%3D%22none%22%20stroke%3D%22%231c2308%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22%20transform%3D%22rotate%282.5%29%20scale%281.04%29%22/%3E%3Cpath%20d%3D%22M5%2C0%20L61.8%2C0%20M18.6%2C0%20L29.9%2C-11.0%20M18.6%2C0%20L29.9%2C11.0%20M33.2%2C0%20L44.5%2C-11.0%20M33.2%2C0%20L44.5%2C11.0%20M47.9%2C0%20L59.2%2C-11.0%20M47.9%2C0%20L59.2%2C11.0%22%20stroke%3D%22%23ffe27a%22%20stroke-width%3D%221.5%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.8%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28576.0%2090.4%29%20rotate%2840.0%29%22%3E%3Cpath%20d%3D%22M0%2C0%20C15.5%2C-21.1%2047.8%2C-20.0%2070.3%2C0%20C49.2%2C19.0%2016.9%2C21.5%200%2C0%20Z%22%20fill%3D%22%231c2308%22%20fill-opacity%3D%22.72%22/%3E%3Cpath%20d%3D%22M0%2C0%20C15.5%2C-21.1%2047.8%2C-20.0%2070.3%2C0%20C49.2%2C19.0%2016.9%2C21.5%200%2C0%20Z%22%20fill%3D%22none%22%20stroke%3D%22%231c2308%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22%20transform%3D%22rotate%282.5%29%20scale%281.04%29%22/%3E%3Cpath%20d%3D%22M5%2C0%20L65.4%2C0%20M19.7%2C0%20L31.7%2C-11.6%20M19.7%2C0%20L31.7%2C11.6%20M35.2%2C0%20L47.1%2C-11.6%20M35.2%2C0%20L47.1%2C11.6%20M50.6%2C0%20L62.6%2C-11.6%20M50.6%2C0%20L62.6%2C11.6%22%20stroke%3D%22%23ffe27a%22%20stroke-width%3D%221.5%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.8%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28608.0%2081.6%29%20rotate%28-72.5%29%22%3E%3Cpath%20d%3D%22M0%2C0%20C13.9%2C-19.0%2043.1%2C-18.1%2063.3%2C0%20C44.3%2C17.1%2015.2%2C19.4%200%2C0%20Z%22%20fill%3D%22%231c2308%22%20fill-opacity%3D%22.72%22/%3E%3Cpath%20d%3D%22M0%2C0%20C13.9%2C-19.0%2043.1%2C-18.1%2063.3%2C0%20C44.3%2C17.1%2015.2%2C19.4%200%2C0%20Z%22%20fill%3D%22none%22%20stroke%3D%22%231c2308%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22%20transform%3D%22rotate%282.5%29%20scale%281.04%29%22/%3E%3Cpath%20d%3D%22M5%2C0%20L58.9%2C0%20M17.7%2C0%20L28.5%2C-10.5%20M17.7%2C0%20L28.5%2C10.5%20M31.7%2C0%20L42.4%2C-10.5%20M31.7%2C0%20L42.4%2C10.5%20M45.6%2C0%20L56.4%2C-10.5%20M45.6%2C0%20L56.4%2C10.5%22%20stroke%3D%22%23ffe27a%22%20stroke-width%3D%221.5%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.8%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28640.0%2060.0%29%20rotate%28-41.2%29%22%3E%3Cpath%20d%3D%22M0%2C0%20C16.9%2C-23.1%2052.4%2C-21.9%2077.0%2C0%20C53.9%2C20.8%2018.5%2C23.6%200%2C0%20Z%22%20fill%3D%22%231c2308%22%20fill-opacity%3D%22.72%22/%3E%3Cpath%20d%3D%22M0%2C0%20C16.9%2C-23.1%2052.4%2C-21.9%2077.0%2C0%20C53.9%2C20.8%2018.5%2C23.6%200%2C0%20Z%22%20fill%3D%22none%22%20stroke%3D%22%231c2308%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22%20transform%3D%22rotate%282.5%29%20scale%281.04%29%22/%3E%3Cpath%20d%3D%22M5%2C0%20L71.6%2C0%20M21.6%2C0%20L34.7%2C-12.7%20M21.6%2C0%20L34.7%2C12.7%20M38.5%2C0%20L51.6%2C-12.7%20M38.5%2C0%20L51.6%2C12.7%20M55.4%2C0%20L68.5%2C-12.7%20M55.4%2C0%20L68.5%2C12.7%22%20stroke%3D%22%23ffe27a%22%20stroke-width%3D%221.5%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.8%22/%3E%3C/g%3E%3C/g%3E%3C/defs%3E%3Cg%20opacity%3D%22.17%22%20filter%3D%22url%28%23g%29%22%20transform%3D%22translate%2852%2044%29%22%3E%3Cuse%20href%3D%22%23br%22%20x%3D%22-720%22%20y%3D%22-720%22/%3E%3Cuse%20href%3D%22%23br%22%20x%3D%22-720%22%20y%3D%220%22/%3E%3Cuse%20href%3D%22%23br%22%20x%3D%22-720%22%20y%3D%22720%22/%3E%3Cuse%20href%3D%22%23br%22%20x%3D%220%22%20y%3D%22-720%22/%3E%3Cuse%20href%3D%22%23br%22%20x%3D%220%22%20y%3D%220%22/%3E%3Cuse%20href%3D%22%23br%22%20x%3D%220%22%20y%3D%22720%22/%3E%3Cuse%20href%3D%22%23br%22%20x%3D%22720%22%20y%3D%22-720%22/%3E%3Cuse%20href%3D%22%23br%22%20x%3D%22720%22%20y%3D%220%22/%3E%3Cuse%20href%3D%22%23br%22%20x%3D%22720%22%20y%3D%22720%22/%3E%3C/g%3E%3Cg%3E%3Cuse%20href%3D%22%23br%22%20x%3D%22-720%22%20y%3D%22-720%22/%3E%3Cuse%20href%3D%22%23br%22%20x%3D%22-720%22%20y%3D%220%22/%3E%3Cuse%20href%3D%22%23br%22%20x%3D%22-720%22%20y%3D%22720%22/%3E%3Cuse%20href%3D%22%23br%22%20x%3D%220%22%20y%3D%22-720%22/%3E%3Cuse%20href%3D%22%23br%22%20x%3D%220%22%20y%3D%220%22/%3E%3Cuse%20href%3D%22%23br%22%20x%3D%220%22%20y%3D%22720%22/%3E%3Cuse%20href%3D%22%23br%22%20x%3D%22720%22%20y%3D%22-720%22/%3E%3Cuse%20href%3D%22%23br%22%20x%3D%22720%22%20y%3D%220%22/%3E%3Cuse%20href%3D%22%23br%22%20x%3D%22720%22%20y%3D%22720%22/%3E%3C/g%3E%3C/svg%3E"), var(--gradient-bg);
+  background-size: 720px 720px, auto;
+  background-position: 0 0, 0 0;
+  background-repeat: repeat, no-repeat;
+  background-attachment: fixed;
+}
+
+@media (max-width: 600px) {
+  body { background-size: 480px 480px, auto; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   AgriPulse v9 — Royal-blue glass top bar
+   Frosted glass: the leaf shadows behind it blur through as you scroll.
+   One light sheen sweeps across the glass once when the page loads.
+   ═══════════════════════════════════════════════════════════════════ */
+.topbar {
+  background-image:
+    linear-gradient(180deg, rgba(65, 105, 225, 0.62) 0%, rgba(65, 105, 225, 0.42) 100%);
+  background-repeat: no-repeat;
+  -webkit-backdrop-filter: blur(16px) saturate(170%);
+  backdrop-filter: blur(16px) saturate(170%);
+  border: 1px solid rgba(255, 255, 255, 0.40);
+  border-top: none;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -2px 0 rgba(30, 58, 160, 0.30),
+    0 4px 0 rgba(65, 105, 225, 0.55),
+    0 14px 28px rgba(30, 58, 160, 0.30);
+}
+
+.topbar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent 36%, rgba(255, 255, 255, 0.65) 50%, transparent 64%);
+  background-size: 260% 100%;
+  background-position: 160% 0;
+  animation: glass-sheen 2.2s ease-out 0.5s 1 forwards;
+}
+
+@keyframes glass-sheen {
+  to { background-position: -60% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .topbar::after { animation: none; opacity: 0; }
+}
+
+/* Keep the controls readable on glass */
+.topbar .search-box,
+.topbar .lang-switch { background: rgba(255, 255, 255, 0.88); }
+
+/* Brand title: white so it stays readable on the royal-blue glass */
+.topbar .brand-name {
+  background: none;
+  -webkit-text-fill-color: #ffffff;
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(20, 40, 120, 0.45);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   AgriPulse v10 — Paper-textured content panels
+   Applies to the result / plant-info card (.glass-card) and the disease
+   detail pop-up (.modal-box). Four layers, top to bottom:
+     1. fine paper grain      2. horizontal paper fibres
+     3. soft cloudy mottling  4. warm off-white paper tone
+   Text, badges and photos sit above the texture, unchanged.
+   ═══════════════════════════════════════════════════════════════════ */
+.glass-card,
+.modal-box {
+  background-color: #fbf7ea;
+  background-image:
+    url("data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%27240%27%20height=%27240%27%3E%3Cfilter%20id=%27n%27%20x=%270%27%20y=%270%27%20width=%27100%25%27%20height=%27100%25%27%3E%3CfeTurbulence%20type=%27fractalNoise%27%20baseFrequency=%270.85%27%20numOctaves=%273%27%20seed=%277%27%20stitchTiles=%27stitch%27/%3E%3CfeColorMatrix%20values=%270%200%200%200%200.42%20%200%200%200%200%200.32%20%200%200%200%200%200.16%20%201.1%200%200%200%20-0.30%27/%3E%3C/filter%3E%3Crect%20width=%27100%25%27%20height=%27100%25%27%20filter=%27url%28%23n%29%27%20opacity=%270.34%27/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%27320%27%20height=%27320%27%3E%3Cfilter%20id=%27f%27%20x=%270%27%20y=%270%27%20width=%27100%25%27%20height=%27100%25%27%3E%3CfeTurbulence%20type=%27fractalNoise%27%20baseFrequency=%270.9%200.035%27%20numOctaves=%272%27%20seed=%273%27%20stitchTiles=%27stitch%27/%3E%3CfeColorMatrix%20values=%270%200%200%200%200.45%20%200%200%200%200%200.35%20%200%200%200%200%200.20%20%201.4%200%200%200%20-0.62%27/%3E%3C/filter%3E%3Crect%20width=%27100%25%27%20height=%27100%25%27%20filter=%27url%28%23f%29%27%20opacity=%270.16%27/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%27640%27%20height=%27640%27%3E%3Cfilter%20id=%27m%27%20x=%270%27%20y=%270%27%20width=%27100%25%27%20height=%27100%25%27%3E%3CfeTurbulence%20type=%27fractalNoise%27%20baseFrequency=%270.012%27%20numOctaves=%273%27%20seed=%2711%27%20stitchTiles=%27stitch%27/%3E%3CfeColorMatrix%20values=%270%200%200%200%200.70%20%200%200%200%200%200.55%20%200%200%200%200%200.28%20%200.9%200%200%200%20-0.25%27/%3E%3C/filter%3E%3Crect%20width=%27100%25%27%20height=%27100%25%27%20filter=%27url%28%23m%29%27%20opacity=%270.22%27/%3E%3C/svg%3E"),
+    linear-gradient(150deg, #fffef9 0%, #fcf8ec 55%, #f7f0dc 100%);
+  background-repeat: repeat, repeat, repeat, no-repeat;
+  background-size: 240px 240px, 320px 320px, 640px 640px, auto;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  border: 1px solid rgba(166, 138, 82, 0.38);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 0 38px rgba(176, 140, 70, 0.10),   /* soft aged edge */
+    0 1px 1px rgba(70, 52, 20, 0.10),
+    0 8px 18px rgba(70, 52, 20, 0.12),
+    0 22px 44px rgba(70, 52, 20, 0.12);
+}
+
+.glass-card:hover {
+  border-color: rgba(166, 138, 82, 0.55);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 0 38px rgba(176, 140, 70, 0.10),
+    0 2px 2px rgba(70, 52, 20, 0.10),
+    0 12px 24px rgba(70, 52, 20, 0.15),
+    0 28px 52px rgba(70, 52, 20, 0.14);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   AgriPulse v11 — Clean computer font, no per-line strips
+   1. Every coloured strip / bubble behind a line of text is removed;
+      lines sit directly on the paper.
+   2. English text uses the normal app fonts (Inter / Outfit).
+      Hindi keeps the handwritten Kalam face (change the last rule to
+      switch it to the standard Devanagari font).
+   ═══════════════════════════════════════════════════════════════════ */
+:root {
+  --font-hand-hindi: 'Kalam', 'Noto Sans Devanagari', cursive;
+  --ink:             #2a2f4a;
+}
+
+/* 1 ─ Remove the strips ─────────────────────────────────────────── */
+.remedy-step,
+.early-stage-item,
+.reference-box,
+.model-info-box,
+.model-stat,
+.modal-desc {
+  background: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+.remedy-step:hover { background: none; border: none; }
+
+.remedy-step,
+.early-stage-item { padding: 0.15rem 0; }
+.reference-box,
+.model-info-box,
+.modal-desc       { padding: 0; }
+.model-stat       { padding: 0.1rem 0; }
+
+/* 2 ─ English text colour on paper ──────────────────────────────── */
+.glass-card,
+.modal-box { color: var(--ink); }
+
+/* 3 ─ Hindi stays handwritten ───────────────────────────────────── */
+html:lang(hi) .glass-card,
+html:lang(hi) .modal-box,
+html:lang(hi) .glass-card :is(p, li, span, small, h1, h2, h3, h4, div),
+html:lang(hi) .modal-box  :is(p, li, span, small, h1, h2, h3, h4, div) {
+  font-family: var(--font-hand-hindi);
+}

@@ -1,0 +1,25 @@
+# AgriPulse AI — Backend Dependencies
+# Install with: pip install -r backend/requirements.txt
+
+# Web framework
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+
+# File upload support
+python-multipart==0.0.9
+
+# ML / Image processing
+torch==2.4.1
+torchvision==0.19.1
+Pillow==10.4.0
+numpy==1.26.4
+
+# LLM (Gemini API)
+google-generativeai==0.8.3
+
+# Config
+python-dotenv==1.0.1
+
+# ML evaluation (for evaluate.py)
+scikit-learn==1.5.2
+matplotlib==3.9.2
